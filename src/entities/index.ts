@@ -47,7 +47,7 @@ export function getOrCreateEmissionCurve(address: Address): EmissionCurve {
   if (emissionCurve === null) {
     const emissionCurveContract = ConstantEmissionCurve.bind(address);
     let rewardPerSecond = BigDecimal.zero();
-    const rewardPerSecondResult = emissionCurveContract.try_rewardPerSecond();
+    const rewardPerSecondResult = emissionCurveContract.try_getRate(BigInt.fromI32(0)); // TODO: Param isn't needed then
     if (!rewardPerSecondResult.reverted) {
       rewardPerSecond = scaleDown(rewardPerSecondResult.value, 18);
     }
@@ -71,8 +71,8 @@ export function createPool(
   const contract = ReliquaryContract.bind(dataSource.address());
   const poolInfo = contract.getPoolInfo(BigInt.fromI32(pid));
   const levelInfo = contract.getLevelInfo(BigInt.fromI32(pid));
-  const allocPoints = levelInfo.allocPoint;
-  const requiredMaturities = levelInfo.requiredMaturity;
+  const allocPoints = poolInfo.allocPoint;
+  const requiredMaturities = levelInfo.requiredMaturities;
 
   const reliquary = getOrCreateReliquary();
   const poolToken = getOrCreateToken(poolTokenAddress);
@@ -98,7 +98,7 @@ export function createPool(
     poolLevel.pool = pool.id;
     poolLevel.level = index;
     poolLevel.balance = BigDecimal.zero();
-    poolLevel.allocationPoints = allocPoints[index].toI32();
+    poolLevel.allocationPoints = allocPoints[index];
     poolLevel.requiredMaturity = requiredMaturities[index].toI32();
     poolLevel.save();
   }

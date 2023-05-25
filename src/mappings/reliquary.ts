@@ -377,6 +377,6 @@ export function transfer(event: Transfer): void {
 
 export function emissionUpdate(event: LogRate): void {
   const emissionCurve = getOrCreateEmissionCurve(dataSource.address());
-  emissionCurve.rewardPerSecond = scaleDown(event.params.rate, 18);
+  emissionCurve.rewardPerSecond = scaleDown(event.params.rewardPerSecond, 18);
   emissionCurve.save();
 }
