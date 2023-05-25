@@ -23,7 +23,7 @@ export class LogRate__Params {
     this._event = event;
   }
 
-  get rate(): BigInt {
+  get rewardPerSecond(): BigInt {
     return this._event.parameters[0].value.toBigInt();
   }
 }
@@ -210,29 +210,6 @@ export class ConstantEmissionCurve extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  rewardPerSecond(): BigInt {
-    let result = super.call(
-      "rewardPerSecond",
-      "rewardPerSecond():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_rewardPerSecond(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "rewardPerSecond",
-      "rewardPerSecond():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   supportsInterface(interfaceId: Bytes): boolean {
     let result = super.call(
       "supportsInterface",
@@ -274,7 +251,7 @@ export class ConstructorCall__Inputs {
     this._call = call;
   }
 
-  get _rewardPerSecond(): BigInt {
+  get rate(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
 }
@@ -406,7 +383,7 @@ export class SetRateCall__Inputs {
     this._call = call;
   }
 
-  get _rewardPerSecond(): BigInt {
+  get rate(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
 }

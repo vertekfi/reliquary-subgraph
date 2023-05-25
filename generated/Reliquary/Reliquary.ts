@@ -10,55 +10,29 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
-export class Approval extends ethereum.Event {
-  get params(): Approval__Params {
-    return new Approval__Params(this);
+export class Transfer extends ethereum.Event {
+  get params(): Transfer__Params {
+    return new Transfer__Params(this);
   }
 }
 
-export class Approval__Params {
-  _event: Approval;
+export class Transfer__Params {
+  _event: Transfer;
 
-  constructor(event: Approval) {
+  constructor(event: Transfer) {
     this._event = event;
   }
 
-  get owner(): Address {
+  get from(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get approved(): Address {
+  get to(): Address {
     return this._event.parameters[1].value.toAddress();
   }
 
   get tokenId(): BigInt {
     return this._event.parameters[2].value.toBigInt();
-  }
-}
-
-export class ApprovalForAll extends ethereum.Event {
-  get params(): ApprovalForAll__Params {
-    return new ApprovalForAll__Params(this);
-  }
-}
-
-export class ApprovalForAll__Params {
-  _event: ApprovalForAll;
-
-  constructor(event: ApprovalForAll) {
-    this._event = event;
-  }
-
-  get owner(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get approved(): boolean {
-    return this._event.parameters[2].value.toBoolean();
   }
 }
 
@@ -232,6 +206,10 @@ export class LogPoolAddition__Params {
   get nftDescriptor(): Address {
     return this._event.parameters[4].value.toAddress();
   }
+
+  get allowPartialWithdrawals(): boolean {
+    return this._event.parameters[5].value.toBoolean();
+  }
 }
 
 export class LogPoolModified extends ethereum.Event {
@@ -338,6 +316,140 @@ export class Merge__Params {
   }
 }
 
+export class Shift extends ethereum.Event {
+  get params(): Shift__Params {
+    return new Shift__Params(this);
+  }
+}
+
+export class Shift__Params {
+  _event: Shift;
+
+  constructor(event: Shift) {
+    this._event = event;
+  }
+
+  get fromId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get toId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class Split extends ethereum.Event {
+  get params(): Split__Params {
+    return new Split__Params(this);
+  }
+}
+
+export class Split__Params {
+  _event: Split;
+
+  constructor(event: Split) {
+    this._event = event;
+  }
+
+  get fromId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get toId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class Withdraw extends ethereum.Event {
+  get params(): Withdraw__Params {
+    return new Withdraw__Params(this);
+  }
+}
+
+export class Withdraw__Params {
+  _event: Withdraw;
+
+  constructor(event: Withdraw) {
+    this._event = event;
+  }
+
+  get pid(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get to(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get relicId(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class Approval extends ethereum.Event {
+  get params(): Approval__Params {
+    return new Approval__Params(this);
+  }
+}
+
+export class Approval__Params {
+  _event: Approval;
+
+  constructor(event: Approval) {
+    this._event = event;
+  }
+
+  get owner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get approved(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class ApprovalForAll extends ethereum.Event {
+  get params(): ApprovalForAll__Params {
+    return new ApprovalForAll__Params(this);
+  }
+}
+
+export class ApprovalForAll__Params {
+  _event: ApprovalForAll;
+
+  constructor(event: ApprovalForAll) {
+    this._event = event;
+  }
+
+  get owner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get operator(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get approved(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+}
+
 export class RoleAdminChanged extends ethereum.Event {
   get params(): RoleAdminChanged__Params {
     return new RoleAdminChanged__Params(this);
@@ -416,120 +528,12 @@ export class RoleRevoked__Params {
   }
 }
 
-export class Shift extends ethereum.Event {
-  get params(): Shift__Params {
-    return new Shift__Params(this);
-  }
-}
-
-export class Shift__Params {
-  _event: Shift;
-
-  constructor(event: Shift) {
-    this._event = event;
-  }
-
-  get fromId(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get toId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-}
-
-export class Split extends ethereum.Event {
-  get params(): Split__Params {
-    return new Split__Params(this);
-  }
-}
-
-export class Split__Params {
-  _event: Split;
-
-  constructor(event: Split) {
-    this._event = event;
-  }
-
-  get fromId(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get toId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-}
-
-export class Transfer extends ethereum.Event {
-  get params(): Transfer__Params {
-    return new Transfer__Params(this);
-  }
-}
-
-export class Transfer__Params {
-  _event: Transfer;
-
-  constructor(event: Transfer) {
-    this._event = event;
-  }
-
-  get from(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get to(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-}
-
-export class Withdraw extends ethereum.Event {
-  get params(): Withdraw__Params {
-    return new Withdraw__Params(this);
-  }
-}
-
-export class Withdraw__Params {
-  _event: Withdraw;
-
-  constructor(event: Withdraw) {
-    this._event = event;
-  }
-
-  get pid(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get to(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get relicId(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-}
-
 export class Reliquary__getLevelInfoResultLevelInfoStruct extends ethereum.Tuple {
-  get requiredMaturity(): Array<BigInt> {
+  get requiredMaturities(): Array<BigInt> {
     return this[0].toBigIntArray();
   }
 
-  get allocPoint(): Array<BigInt> {
+  get multipliers(): Array<BigInt> {
     return this[1].toBigIntArray();
   }
 
@@ -553,6 +557,10 @@ export class Reliquary__getPoolInfoResultPoolStruct extends ethereum.Tuple {
 
   get name(): string {
     return this[3].toString();
+  }
+
+  get allowPartialWithdrawals(): boolean {
+    return this[4].toBoolean();
   }
 }
 
@@ -579,6 +587,76 @@ export class Reliquary__getPositionForIdResultPositionStruct extends ethereum.Tu
 
   get level(): BigInt {
     return this[5].toBigInt();
+  }
+}
+
+export class Reliquary__pendingRewardsOfOwnerResultPendingRewardsStruct extends ethereum.Tuple {
+  get relicId(): BigInt {
+    return this[0].toBigInt();
+  }
+
+  get poolId(): BigInt {
+    return this[1].toBigInt();
+  }
+
+  get pendingReward(): BigInt {
+    return this[2].toBigInt();
+  }
+}
+
+export class Reliquary__relicPositionsOfOwnerResultPositionInfosStruct extends ethereum.Tuple {
+  get amount(): BigInt {
+    return this[0].toBigInt();
+  }
+
+  get rewardDebt(): BigInt {
+    return this[1].toBigInt();
+  }
+
+  get rewardCredit(): BigInt {
+    return this[2].toBigInt();
+  }
+
+  get entry(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get poolId(): BigInt {
+    return this[4].toBigInt();
+  }
+
+  get level(): BigInt {
+    return this[5].toBigInt();
+  }
+}
+
+export class Reliquary__relicPositionsOfOwnerResult {
+  value0: Array<BigInt>;
+  value1: Array<Reliquary__relicPositionsOfOwnerResultPositionInfosStruct>;
+
+  constructor(
+    value0: Array<BigInt>,
+    value1: Array<Reliquary__relicPositionsOfOwnerResultPositionInfosStruct>
+  ) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigIntArray(this.value0));
+    map.set("value1", ethereum.Value.fromTupleArray(this.value1));
+    return map;
+  }
+
+  getRelicIds(): Array<BigInt> {
+    return this.value0;
+  }
+
+  getPositionInfos(): Array<
+    Reliquary__relicPositionsOfOwnerResultPositionInfosStruct
+  > {
+    return this.value1;
   }
 }
 
@@ -738,7 +816,7 @@ export class Reliquary extends ethereum.SmartContract {
   getPoolInfo(pid: BigInt): Reliquary__getPoolInfoResultPoolStruct {
     let result = super.call(
       "getPoolInfo",
-      "getPoolInfo(uint256):((uint256,uint256,uint256,string))",
+      "getPoolInfo(uint256):((uint256,uint256,uint256,string,bool))",
       [ethereum.Value.fromUnsignedBigInt(pid)]
     );
 
@@ -752,7 +830,7 @@ export class Reliquary extends ethereum.SmartContract {
   ): ethereum.CallResult<Reliquary__getPoolInfoResultPoolStruct> {
     let result = super.tryCall(
       "getPoolInfo",
-      "getPoolInfo(uint256):((uint256,uint256,uint256,string))",
+      "getPoolInfo(uint256):((uint256,uint256,uint256,string,bool))",
       [ethereum.Value.fromUnsignedBigInt(pid)]
     );
     if (result.reverted) {
@@ -917,6 +995,38 @@ export class Reliquary extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isApprovedOrOwner(spender: Address, relicId: BigInt): boolean {
+    let result = super.call(
+      "isApprovedOrOwner",
+      "isApprovedOrOwner(address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(spender),
+        ethereum.Value.fromUnsignedBigInt(relicId)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isApprovedOrOwner(
+    spender: Address,
+    relicId: BigInt
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isApprovedOrOwner",
+      "isApprovedOrOwner(address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(spender),
+        ethereum.Value.fromUnsignedBigInt(relicId)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   levelOnUpdate(relicId: BigInt): BigInt {
     let result = super.call(
       "levelOnUpdate",
@@ -938,25 +1048,6 @@ export class Reliquary extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  multicall(data: Array<Bytes>): Array<Bytes> {
-    let result = super.call("multicall", "multicall(bytes[]):(bytes[])", [
-      ethereum.Value.fromBytesArray(data)
-    ]);
-
-    return result[0].toBytesArray();
-  }
-
-  try_multicall(data: Array<Bytes>): ethereum.CallResult<Array<Bytes>> {
-    let result = super.tryCall("multicall", "multicall(bytes[]):(bytes[])", [
-      ethereum.Value.fromBytesArray(data)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytesArray());
   }
 
   name(): string {
@@ -1039,6 +1130,41 @@ export class Reliquary extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  pendingRewardsOfOwner(
+    owner: Address
+  ): Array<Reliquary__pendingRewardsOfOwnerResultPendingRewardsStruct> {
+    let result = super.call(
+      "pendingRewardsOfOwner",
+      "pendingRewardsOfOwner(address):((uint256,uint256,uint256)[])",
+      [ethereum.Value.fromAddress(owner)]
+    );
+
+    return result[0].toTupleArray<
+      Reliquary__pendingRewardsOfOwnerResultPendingRewardsStruct
+    >();
+  }
+
+  try_pendingRewardsOfOwner(
+    owner: Address
+  ): ethereum.CallResult<
+    Array<Reliquary__pendingRewardsOfOwnerResultPendingRewardsStruct>
+  > {
+    let result = super.tryCall(
+      "pendingRewardsOfOwner",
+      "pendingRewardsOfOwner(address):((uint256,uint256,uint256)[])",
+      [ethereum.Value.fromAddress(owner)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      value[0].toTupleArray<
+        Reliquary__pendingRewardsOfOwnerResultPendingRewardsStruct
+      >()
+    );
+  }
+
   poolLength(): BigInt {
     let result = super.call("poolLength", "poolLength():(uint256)", []);
 
@@ -1071,6 +1197,45 @@ export class Reliquary extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  relicPositionsOfOwner(
+    owner: Address
+  ): Reliquary__relicPositionsOfOwnerResult {
+    let result = super.call(
+      "relicPositionsOfOwner",
+      "relicPositionsOfOwner(address):(uint256[],(uint256,uint256,uint256,uint256,uint256,uint256)[])",
+      [ethereum.Value.fromAddress(owner)]
+    );
+
+    return new Reliquary__relicPositionsOfOwnerResult(
+      result[0].toBigIntArray(),
+      result[1].toTupleArray<
+        Reliquary__relicPositionsOfOwnerResultPositionInfosStruct
+      >()
+    );
+  }
+
+  try_relicPositionsOfOwner(
+    owner: Address
+  ): ethereum.CallResult<Reliquary__relicPositionsOfOwnerResult> {
+    let result = super.tryCall(
+      "relicPositionsOfOwner",
+      "relicPositionsOfOwner(address):(uint256[],(uint256,uint256,uint256,uint256,uint256,uint256)[])",
+      [ethereum.Value.fromAddress(owner)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new Reliquary__relicPositionsOfOwnerResult(
+        value[0].toBigIntArray(),
+        value[1].toTupleArray<
+          Reliquary__relicPositionsOfOwnerResultPositionInfosStruct
+        >()
+      )
+    );
   }
 
   rewardToken(): Address {
@@ -1315,6 +1480,14 @@ export class ConstructorCall__Inputs {
   get _emissionCurve(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
+
+  get _name(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get _symbol(): string {
+    return this._call.inputValues[3].value.toString();
+  }
 }
 
 export class ConstructorCall__Outputs {
@@ -1354,20 +1527,24 @@ export class AddPoolCall__Inputs {
     return this._call.inputValues[2].value.toAddress();
   }
 
-  get requiredMaturity(): Array<BigInt> {
+  get requiredMaturities(): Array<BigInt> {
     return this._call.inputValues[3].value.toBigIntArray();
   }
 
-  get allocPoints(): Array<BigInt> {
+  get levelMultipliers(): Array<BigInt> {
     return this._call.inputValues[4].value.toBigIntArray();
   }
 
-  get name(): string {
+  get _name(): string {
     return this._call.inputValues[5].value.toString();
   }
 
   get _nftDescriptor(): Address {
     return this._call.inputValues[6].value.toAddress();
+  }
+
+  get allowPartialWithdrawals(): boolean {
+    return this._call.inputValues[7].value.toBoolean();
   }
 }
 
@@ -1603,6 +1780,10 @@ export class HarvestCall__Inputs {
   get relicId(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
+
+  get harvestTo(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
 }
 
 export class HarvestCall__Outputs {
@@ -1724,40 +1905,6 @@ export class ModifyPoolCall__Outputs {
 
   constructor(call: ModifyPoolCall) {
     this._call = call;
-  }
-}
-
-export class MulticallCall extends ethereum.Call {
-  get inputs(): MulticallCall__Inputs {
-    return new MulticallCall__Inputs(this);
-  }
-
-  get outputs(): MulticallCall__Outputs {
-    return new MulticallCall__Outputs(this);
-  }
-}
-
-export class MulticallCall__Inputs {
-  _call: MulticallCall;
-
-  constructor(call: MulticallCall) {
-    this._call = call;
-  }
-
-  get data(): Array<Bytes> {
-    return this._call.inputValues[0].value.toBytesArray();
-  }
-}
-
-export class MulticallCall__Outputs {
-  _call: MulticallCall;
-
-  constructor(call: MulticallCall) {
-    this._call = call;
-  }
-
-  get results(): Array<Bytes> {
-    return this._call.outputValues[0].value.toBytesArray();
   }
 }
 
@@ -2208,6 +2355,10 @@ export class WithdrawAndHarvestCall__Inputs {
 
   get relicId(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get harvestTo(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 

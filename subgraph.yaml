@@ -38,7 +38,7 @@ dataSources:
         - name: ERC721
           file: "./abis/ERC721.json"
       eventHandlers:
-        - event: LogPoolAddition(indexed uint256,uint256,indexed address,indexed address,address)
+        - event: LogPoolAddition(indexed uint256,uint256,indexed address,indexed address,address,bool)
           handler: logPoolAddition
         - event: LogPoolModified(indexed uint256,uint256,indexed address,address)
           handler: logPoolModified
