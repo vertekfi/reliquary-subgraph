@@ -28,7 +28,7 @@ import {
   getRelicOrThrow,
 } from '../entities';
 import { scaleDown } from '../utils/numbers';
-import { LogRate } from '../../generated/Reliquary/BeetsConstantEmissionCurve';
+import { LogRate } from '../../generated/Reliquary/ConstantEmissionCurve';
 import { Relic } from '../../generated/schema';
 
 export function logPoolAddition(event: LogPoolAddition): void {

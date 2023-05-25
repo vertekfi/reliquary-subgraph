@@ -7,10 +7,9 @@
     "codegen": "graph codegen subgraph.yaml",
     "build": "graph build subgraph.yaml",
     "create-local": "graph create --node http://localhost:8020/",
-    "remove-local": "graph remove --node http://localhost:8020/ beetx-subgraph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 beetx-subgraph",
-    "auth-hosted": "yarn graph auth --product hosted-service",
-    "deploy-hosted": "yarn graph deploy --product hosted-service vertekfi/reliquary"
+    "remove-local": "graph remove --node http://localhost:8020/ reliquary-subgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 reliquary-subgraph",
+    "deploy:arbitrum": "yarn graph deploy --product hosted-service vertekfi/reliquary-arbitrum"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.48.0",
